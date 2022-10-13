@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <title>Shaka [Player] Video Element</title>
+    <script type="module" src="https://unpkg.com/media-chrome@0.7"></script>
+    <script type="module" src="./dist/shaka-video-element.js"></script>
+
+    <style>
+      media-controller {
+        width: 640px;
+        height: 360px;
+      }
+    </style>
+  </head>
+  <body>
+
+    <!-- Using media chrome for controls -->
+    <media-controller>
+      <!-- alt src https://stream.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe.m3u8 -->
+
+      <shaka-video
+        slot="media"
+        src="https://storage.googleapis.com/shaka-demo-assets/bbb-dark-truths-hls/hls.m3u8"
+      >
+
+      <track label="thumbnails" id="customTrack" default kind="metadata" src="https://image.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe/storyboard.vtt"></track>
+    </shaka-video>
+      <media-control-bar>
+        <media-play-button></media-play-button>
+        <media-mute-button></media-mute-button>
+        <media-volume-range></media-volume-range>
+        <media-time-range></media-time-range>
+        <media-pip-button></media-pip-button>
+        <media-fullscreen-button></media-fullscreen-button>
+      </media-control-bar>
+    </media-controller>
+
+    <p><a href="https://github.com/muxinc/shaka-video-element">github.com/muxinc/shaka-video-element</a></p>
+  </body>
+</html>

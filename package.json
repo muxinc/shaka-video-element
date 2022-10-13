@@ -1,0 +1,42 @@
+{
+  "name": "shaka-video-element",
+  "version": "0.0.3",
+  "description": "Custom element (web component) for Shaka Player",
+  "type": "module",
+  "main": "dist/shaka-video-element.js",
+  "files": [
+    "./dist/*",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && rollup --config",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "publish-patch": "yarn run build && np patch --no-tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muxinc/shaka-video-element.git"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
+  "keywords": [
+    "shaka",
+    "video",
+    "player"
+  ],
+  "author": "@muxinc",
+  "license": "MIT",
+  "dependencies": {
+    "custom-video-element": "^0.0.2",
+    "shaka-player": "^4.2.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "np": "^6.2.0",
+    "rollup": "^2.2.0",
+    "rollup-plugin-babel-minify": "^10.0.0",
+    "rollup-plugin-terser": "^5.3.0"
+  }
+}
