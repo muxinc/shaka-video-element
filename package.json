@@ -6,7 +6,8 @@
   "main": "dist/shaka-video-element.js",
   "files": [
     "./dist/*",
-    "README.md"
+    "README.md",
+    "index.html"
   ],
   "scripts": {
     "build": "rm -rf dist && rollup --config",
