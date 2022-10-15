@@ -44,20 +44,22 @@ class ShakaVideoElement extends CustomVideoElement {
   }
 
   async load() {
-    // Try to load a manifest.
-    // This is an asynchronous process.
-    try {
-      await this.player.load(this.src);
-      // This runs if the asynchronous load is successful.
-      console.log('The video has now been loaded!');
-    } catch (e) {
-      // onError is executed if the asynchronous load fails.
-      onError(e);
+    if (!this.src) {
+      this.player.unload();
+    } else {
+      // Try to load a manifest.
+      // This is an asynchronous process.
+      try {
+        await this.player.load(this.src);
+      } catch (e) {
+        // onError is executed if the asynchronous load fails.
+        onError(e);
+      }
     }
   }
 
   connectedCallback() {
-    if (this.src) {
+    if (this.player && this.src) {
       this.load();
     }
 
@@ -68,6 +70,10 @@ class ShakaVideoElement extends CustomVideoElement {
     // if (this.preload === 'auto') {
     //   this.load();
     // }
+  }
+
+  disconnectedCallback() {
+    this.player && this.player.unload();
   }
 }
 
