@@ -1,6 +1,6 @@
 {
   "name": "shaka-video-element",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Custom element (web component) for Shaka Player",
   "type": "module",
   "main": "dist/shaka-video-element.js",
