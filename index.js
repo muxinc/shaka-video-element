@@ -1,13 +1,31 @@
-// Web Components: Extending Native Elements, A working example
-
 import CustomVideoElement from 'custom-video-element';
 import shaka from 'shaka-player';
+
+function onErrorEvent(event) {
+  // Extract the shaka.util.Error object from the event.
+  onError(event.detail);
+}
+
+function onError(error) {
+  // Log the error.
+  console.error('Error code', error.code, 'object', error);
+}
 
 class ShakaVideoElement extends CustomVideoElement {
   constructor() {
     super();
+    this.player = null;
 
-    console.log(shaka);
+    if (shaka.Player.isBrowserSupported()) {
+      this.player = new shaka.Player(this.nativeEl);
+
+      // Listen for error events.
+      this.player.addEventListener('error', onErrorEvent);
+
+    } else {
+      // This browser does not have the minimum set of APIs we need.
+      console.error('Browser does not support Shaka Player');
+    }
   }
 
   get src() {
@@ -26,58 +44,22 @@ class ShakaVideoElement extends CustomVideoElement {
   }
 
   async load() {
-    const player = new shaka.Player(this.nativeEl);
-
-    // Listen for error events.
-    player.addEventListener('error', onErrorEvent);
-
     // Try to load a manifest.
     // This is an asynchronous process.
     try {
-      await player.load(this.src);
+      await this.player.load(this.src);
       // This runs if the asynchronous load is successful.
       console.log('The video has now been loaded!');
     } catch (e) {
       // onError is executed if the asynchronous load fails.
       onError(e);
     }
-
-    function onErrorEvent(event) {
-      // Extract the shaka.util.Error object from the event.
-      onError(event.detail);
-    }
-    
-    function onError(error) {
-      // Log the error.
-      console.error('Error code', error.code, 'object', error);
-    }
-
-
-    // if (Hls.isSupported()) {
-    //   var hls = new Hls({
-    //     // Kind of like preload metadata, but causes spinner.
-    //     // autoStartLoad: false,
-    //   });
-
-    //   hls.loadSource(this.src);
-    //   hls.attachMedia(this.nativeEl);
-    // } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    //   this.nativeEl.src = this.src;
-    // }
   }
 
-  // play() {
-  //   if (this.readyState === 0 && this.networkState < 2) {
-  //     this.load();
-  //     this.hls.on(Hls.Events.MANIFEST_PARSED,function() {
-  //     video.play();
-  //
-  //     return this.nativeEl.play();
-  //   }
-  // }
-
   connectedCallback() {
-    this.load();
+    if (this.src) {
+      this.load();
+    }
 
     // Not preloading might require faking the play() promise
     // so that you can call play(), call load() within that

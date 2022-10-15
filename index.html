@@ -16,15 +16,13 @@
 
     <!-- Using media chrome for controls -->
     <media-controller>
-      <!-- alt src https://stream.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe.m3u8 -->
 
       <shaka-video
         slot="media"
         src="https://storage.googleapis.com/shaka-demo-assets/bbb-dark-truths-hls/hls.m3u8"
       >
-
-      <track label="thumbnails" id="customTrack" default kind="metadata" src="https://image.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe/storyboard.vtt"></track>
-    </shaka-video>
+        <track label="thumbnails" id="customTrack" default kind="metadata" src="https://image.mux.com/DS00Spx1CV902MCtPj5WknGlR102V5HFkDe/storyboard.vtt"></track>
+      </shaka-video>
       <media-control-bar>
         <media-play-button></media-play-button>
         <media-mute-button></media-mute-button>
